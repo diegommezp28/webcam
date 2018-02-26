@@ -1,7 +1,10 @@
 # webcam
-Simple Webcam Streaming with OpenCV and UDP using Python
+Simple Webcam Streaming with OpenCV and UDP using Python.
+
 To use it, you have to install OpenCV on your computer.
-for more information about OpenCV goto http://opencv.org
+
+For more information about OpenCV goto http://opencv.org
+
 numpy is also required.
 
 I use openCV to capture image from my webcam, and compress it
