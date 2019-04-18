@@ -1,22 +1,16 @@
-#!/usr/bin/env python
-"""Webcam video streaming
-
-
-
-Using OpenCV to capture frames from webcam.
-Compress each frame to jpeg and save it.
-Using socket to read from the jpg and send
-it to remote address.
-!!!press q to quit!!!
-"""
 import numpy as np
 import cv2 as cv
 import socket
 
-addr = ("127.0.0.1", 4096)
+addr = ("127.0.0.1", 65534)
 buf = 512
+width = 640
+height = 480
 cap = cv.VideoCapture(0)
+cap.set(3, width)
+cap.set(4, height)
 code = 'start'
+code = code + (buf - len(code)) * 'a'
 
 
 def sendFrame(frame):
