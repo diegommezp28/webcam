@@ -7,7 +7,7 @@ addr = ("127.0.0.1", 65534)
 buf = 512
 width = 640
 height = 480
-code = 'start'
+code = b'start'
 l = width * height * 3
 
 if __name__ == '__main__':
@@ -15,15 +15,13 @@ if __name__ == '__main__':
     s.bind(addr)
     while True:
         byte_frame = bytearray()
-        saw_start = False
+        start = False
         while (len(byte_frame) < l):
             data, _ = s.recvfrom(buf)
-            if saw_start:
+            if start:
                 byte_frame.extend(data)
-            else:
-                loc = data.find(code.encode('utf-8'))
-                if loc == 0:
-                    saw_start = True
+            elif data.startswith(code):
+                start = True
 
         frame = np.frombuffer(
             byte_frame, dtype=np.uint8).reshape(height, width, 3)
