@@ -2,7 +2,8 @@
 
 from socket import *
 import numpy as np
-import cv2
+import cv2 as cv
+import os
 
 host = "127.0.0.1"
 port = 4096
@@ -16,8 +17,7 @@ def foo():
         s = socket(AF_INET, SOCK_DGRAM)
         s.bind(addr)
 
-        data, address = s.recvfrom(buf)
-        f = open(data, 'wb')
+        f = open("img.jpg", 'wb')
 
         data, address = s.recvfrom(buf)
 
@@ -29,11 +29,13 @@ def foo():
         except timeout:
             f.close()
             s.close()
-        image = cv2.imread(fName)
-        cv2.imshow('recv', image)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        image = cv.imread(fName)
+        if image is not None:
+            cv.imshow('recv', image)
+        if cv.waitKey(1) & 0xFF == ord('q'):
+            os.remove("img.jpg")
             break
 
 if __name__ == '__main__':
     foo()
-    cv2.destroyAllWindows()
+    cv.destroyAllWindows()

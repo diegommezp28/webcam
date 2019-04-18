@@ -10,10 +10,11 @@ it to remote address.
 !!!press q to quit!!!
 """
 import numpy as np
-import cv2
+import cv2 as cv
 from socket import *
+import os
 
-cap = cv2.VideoCapture(0)
+cap = cv.VideoCapture(0)
 
 FPS = cap.get(5)
 setFPS = 10
@@ -26,7 +27,6 @@ buf = 1024
 
 def sendFile(fName):
     s = socket(AF_INET, SOCK_DGRAM)
-    s.sendto(fName, addr)
     f = open(fName, "rb")
     data = f.read(buf)
     while data:
@@ -39,19 +39,16 @@ def captureFunc():
     count = 0
     while(cap.isOpened()):
         ret, frame = cap.read()
-        if ret == True:
-            cv2.imshow('frame', frame)
+        if ret:
             count = count + 1
             if count == ratio:
-                cv2.imwrite("img.jpg", frame)
+                cv.imwrite("img.jpg", frame)
                 sendFile("img.jpg")
                 count = 0            
-            if cv2.waitKey(1) & 0xFF == ord('q'):
-                break
         else:
             break
 
 if __name__ == '__main__':
     captureFunc()
     cap.release()
-    cv2.destroyAllWindows()
+    cv.destroyAllWindows()
