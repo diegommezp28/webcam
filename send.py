@@ -5,14 +5,13 @@ import cv2 as cv
 
 addr = ("", 65534)
 buf = 512
-width = 640
-height = 480
-cap = cv.VideoCapture(0)
+width = 1920
+height = 1080
+cap = cv.VideoCapture('./video1.mkv')
 cap.set(3, width)
 cap.set(4, height)
 code = 'start'
 code = ('start' + (buf - len(code)) * 'a').encode('utf-8')
-
 
 if __name__ == '__main__':
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

@@ -3,10 +3,10 @@ import numpy as np
 import cv2 as cv
 
 
-addr = ("192.168.1.133", 65534)
+addr = ("localhost", 65534)
 buf = 512
-width = 640
-height = 480
+width = 1920
+height = 1080
 code = b'start'
 num_of_chunks = width * height * 3 / buf
 
@@ -18,6 +18,7 @@ if __name__ == '__main__':
         start = False
         while len(chunks) < num_of_chunks:
             chunk, _ = s.recvfrom(buf)
+            # print(chunk)
             if start:
                 chunks.append(chunk)
             elif chunk.startswith(code):
