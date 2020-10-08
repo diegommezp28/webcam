@@ -3,7 +3,7 @@ import numpy as np
 import cv2 as cv
 
 
-addr = ("127.0.0.1", 65534)
+addr = ("192.168.1.133", 65534)
 buf = 512
 width = 640
 height = 480
